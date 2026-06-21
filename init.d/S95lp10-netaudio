@@ -1,0 +1,95 @@
+#!/bin/sh
+# BusyBox-/init.d-compatible service wrapper. The daemon itself stays in the
+# foreground; this script backgrounds it and records only its own PID.
+
+DAEMON="/opt/lp10-netaudio/lp10-netaudio"
+CONFIG="/opt/lp10-netaudio/config.json"
+PIDFILE="/var/run/lp10-netaudio.pid"
+FALLBACK_LOG="/opt/lp10-netaudio/lp10-netaudio.log"
+
+pid_matches_daemon() {
+    pid="$1"
+    [ -n "$pid" ] || return 1
+    [ -r "/proc/$pid/cmdline" ] || return 1
+    grep -a -q "$DAEMON" "/proc/$pid/cmdline" 2>/dev/null
+}
+
+running_pid() {
+    [ -r "$PIDFILE" ] || return 1
+    pid="$(cat "$PIDFILE" 2>/dev/null)"
+    pid_matches_daemon "$pid" || return 1
+    kill -0 "$pid" 2>/dev/null || return 1
+    printf '%s\n' "$pid"
+}
+
+start_service() {
+    pid="$(running_pid)"
+    if [ -n "$pid" ]; then
+        echo "lp10-netaudio already running (pid $pid)"
+        return 0
+    fi
+    rm -f "$PIDFILE"
+    if [ ! -x "$DAEMON" ] || [ ! -r "$CONFIG" ]; then
+        echo "lp10-netaudio is not installed correctly" >&2
+        return 1
+    fi
+    "$DAEMON" -c "$CONFIG" >>"$FALLBACK_LOG" 2>&1 &
+    pid="$!"
+    printf '%s\n' "$pid" >"$PIDFILE"
+    sleep 1
+    if ! running_pid >/dev/null; then
+        echo "lp10-netaudio failed to start; inspect $FALLBACK_LOG" >&2
+        rm -f "$PIDFILE"
+        return 1
+    fi
+    echo "lp10-netaudio started (pid $pid)"
+}
+
+stop_service() {
+    pid="$(running_pid)"
+    if [ -z "$pid" ]; then
+        if [ -e "$PIDFILE" ]; then
+            echo "Refusing to signal stale or non-lp10-netaudio pid file" >&2
+            rm -f "$PIDFILE"
+        else
+            echo "lp10-netaudio is not running"
+        fi
+        return 0
+    fi
+    kill -TERM "$pid" 2>/dev/null || return 1
+    count=0
+    while kill -0 "$pid" 2>/dev/null && [ "$count" -lt 10 ]; do
+        sleep 1
+        count=$((count + 1))
+    done
+    if kill -0 "$pid" 2>/dev/null; then
+        echo "lp10-netaudio did not stop; no forced kill was sent" >&2
+        return 1
+    fi
+    rm -f "$PIDFILE"
+    echo "lp10-netaudio stopped"
+}
+
+status_service() {
+    pid="$(running_pid)"
+    if [ -n "$pid" ]; then
+        echo "lp10-netaudio is running (pid $pid)"
+        return 0
+    fi
+    echo "lp10-netaudio is not running"
+    return 3
+}
+
+case "$1" in
+    start) start_service ;;
+    stop) stop_service ;;
+    restart)
+        stop_service || exit $?
+        start_service
+        ;;
+    status) status_service ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|status}" >&2
+        exit 2
+        ;;
+esac

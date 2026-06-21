@@ -1,0 +1,8 @@
+{
+  "listen_host": "0.0.0.0",
+  "listen_port": 9100,
+  "alsa_device": "hw:0,0",
+  "buffer_frames": 4096,
+  "period_frames": 1024,
+  "log_file": "/opt/lp10-netaudio/lp10-netaudio.log"
+}

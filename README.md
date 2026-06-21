@@ -1,44 +1,4 @@
-<!-- cybermunkeh-standard-readme: 2026-06-21 -->
 <p align="center"><img src="assets/cyber-global-guardian-banner-v1.png" alt="Globale Vernetzung unter Schutz eines heraldischen Adlers" width="100%"></p>
-
-# LP10 NetAudio
-
-> **Dienstliche Kurzlage:** Privates Entwicklungs- und Dokumentationsvorhaben. Keine amtliche Zugehörigkeit, keine Einsatzfreigabe und keine operative Verwendung.
-
-| Merkmal | Festlegung |
-| --- | --- |
-| Repository | cybermunkeh/lp10-netaudio |
-| Status | Bestandsaufnahme und technische Weiterentwicklung |
-| Vertraulichkeit | Privat |
-| Technologiebezug | C/POSIX, ALSA, TCP, Arylic LP10 |
-| Fachliche Schlagworte | `arylic-lp10`, `audio`, `alsa`, `tcp`, `networking` |
-
-## 1. Auftrag
-
-Dieses Repository dokumentiert und entwickelt einen schlanken PCM-Empfänger für Arylic/Rakoit-LP10-Geräte. Ein einzelner TCP-Stream wird ohne Resampling oder DSP direkt auf ein konfiguriertes ALSA-`hw:X,Y`-Gerät ausgegeben.
-
-## 2. Einsatzrahmen
-
-- Nutzung ausschließlich im privaten Entwicklungs- und Testkontext.
-- Keine amtliche, militärische oder behördliche Verwendung impliziert.
-- Externe Schnittstellen, Zugangsdaten und produktive Konfigurationen dürfen nicht eingecheckt werden.
-
-## 3. Technischer Bestand
-
-- Primäre Technologien: **C/POSIX, ALSA, TCP und Arylic LP10**
-- Repositoriumsthemen: `arylic-lp10`, `audio`, `alsa`, `tcp`, `networking`
-- Gemeinsames Gestaltungsmerkmal: Banner mit globaler Vernetzung und Schutzmotiv.
-
-## 4. Sicherheits- und Verfahrenshinweise
-
-1. Vor jedem Push sind Geheimnisse, lokale Datenbanken, Logs, Build-Artefakte und Gerätezugangsdaten auszuschließen.
-2. Drittanbieter-Code, Lizenzen und Upstream-Bezüge sind vor einer Veröffentlichung zu prüfen.
-3. Änderungen sind mit einem nachvollziehbaren Änderungsgrund und einer technischen Prüfung zu dokumentieren.
-
-## 5. Betriebsstatus
-
-**Bearbeitungsstand:** Dokumentation vorbereitet; Quellimport und Veröffentlichung erfolgen erst nach projektbezogener Sicherheits- und Lizenzprüfung.
-## 6. Vorhandene Projektdokumentation
 
 # lp10-netaudio
 
