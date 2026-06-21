@@ -1,17 +1,7 @@
 <!-- cybermunkeh-standard-readme: 2026-06-21 -->
 <p align="center"><img src="assets/cyber-global-guardian-banner-v1.png" alt="Globale Vernetzung unter Schutz eines heraldischen Adlers" width="100%"></p>
 
-`	ext
-          _..----.._
-       .-'            -.
-     .'    BANANA        .
-    /                      \
-    \                      /
-     ._                _.'
-        --..______..--'
-`
-
-# L P10 N Et Au Di O
+# LP10 NetAudio
 
 > **Dienstliche Kurzlage:** Privates Entwicklungs- und Dokumentationsvorhaben. Keine amtliche Zugehörigkeit, keine Einsatzfreigabe und keine operative Verwendung.
 
@@ -20,12 +10,12 @@
 | Repository | cybermunkeh/lp10-netaudio |
 | Status | Bestandsaufnahme und technische Weiterentwicklung |
 | Vertraulichkeit | Privat |
-| Technologiebezug | Arylic LP10 |
-| Fachliche Schlagworte | Arylic-LP10 |
+| Technologiebezug | C/POSIX, ALSA, TCP, Arylic LP10 |
+| Fachliche Schlagworte | `arylic-lp10`, `audio`, `alsa`, `tcp`, `networking` |
 
 ## 1. Auftrag
 
-Dieses Repository dient der nachvollziehbaren Entwicklung, Dokumentation und technischen Pflege von **L P10 N Et Au Di O**. Der fachliche Zweck wird aus dem vorhandenen Quellbestand abgeleitet und vor einer Veröffentlichung oder produktiven Nutzung gesondert geprüft.
+Dieses Repository dokumentiert und entwickelt einen schlanken PCM-Empfänger für Arylic/Rakoit-LP10-Geräte. Ein einzelner TCP-Stream wird ohne Resampling oder DSP direkt auf ein konfiguriertes ALSA-`hw:X,Y`-Gerät ausgegeben.
 
 ## 2. Einsatzrahmen
 
@@ -35,8 +25,8 @@ Dieses Repository dient der nachvollziehbaren Entwicklung, Dokumentation und tec
 
 ## 3. Technischer Bestand
 
-- Primäre Technologien: **Arylic LP10**
-- Repositoriumsthemen: $tagText
+- Primäre Technologien: **C/POSIX, ALSA, TCP und Arylic LP10**
+- Repositoriumsthemen: `arylic-lp10`, `audio`, `alsa`, `tcp`, `networking`
 - Gemeinsames Gestaltungsmerkmal: Banner mit globaler Vernetzung und Schutzmotiv.
 
 ## 4. Sicherheits- und Verfahrenshinweise
