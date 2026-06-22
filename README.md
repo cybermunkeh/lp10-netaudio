@@ -49,7 +49,28 @@ the daemon will log `Device or resource busy`. Do **not** kill vendor processes
 to make it work. Choose an available hardware endpoint or arrange normal,
 manual service ownership before testing.
 
-## Build
+## Install the ready-to-use LP10 release
+
+The GitHub release archive `lp10-netaudio-lp10-armv7hf.tar.gz` contains a
+stripped, statically linked ARMv7 hard-float executable. It is an ELF32 ARM
+EABI5 binary with no dynamic ELF dependencies, so it does not require a
+matching LP10 glibc or `libasound.so.2` at runtime.
+
+After identifying a free ALSA device as described above, copy and install the
+archive without compiling on the player:
+
+```sh
+scp lp10-netaudio-lp10-armv7hf.tar.gz root@192.168.1.50:/tmp/
+ssh root@192.168.1.50 'cd /tmp && tar -xzf lp10-netaudio-lp10-armv7hf.tar.gz && cd lp10-netaudio && chmod 0755 scripts/*.sh init.d/S95lp10-netaudio && ./scripts/install.sh && /etc/init.d/S95lp10-netaudio start && /etc/init.d/S95lp10-netaudio status'
+```
+
+Set `alsa_device` in `config/config.json` before the first installation, or
+edit `/opt/lp10-netaudio/config.json` afterwards and run
+`/etc/init.d/S95lp10-netaudio restart`. The installed `S95lp10-netaudio`
+script is retained in `/etc/init.d` and is started again on the next normal
+boot by BusyBox init.
+
+## Build from source
 
 The receiver must be built for the LP10's CPU architecture and linked against
 the device-compatible ALSA ABI. The daemon only depends on libc and libasound.

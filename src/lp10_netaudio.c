@@ -8,6 +8,7 @@
 
 #define _POSIX_C_SOURCE 200112L
 
+#include <alloca.h>
 #include <alsa/asoundlib.h>
 #include <arpa/inet.h>
 #include <errno.h>
